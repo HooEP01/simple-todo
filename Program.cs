@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
 
 namespace ConsoleApp1
 {
@@ -9,6 +12,12 @@ namespace ConsoleApp1
             Login();
 
             List<Todo> todos = [];
+
+            if (File.Exists("todos.json"))
+            {
+                string readJson = File.ReadAllText("todos.json");
+                todos = JsonSerializer.Deserialize<List<Todo>>(readJson) ?? [];
+            }
 
             while (true)
             {
@@ -28,6 +37,9 @@ namespace ConsoleApp1
                     break;
                 }
             }
+
+            string json = JsonSerializer.Serialize(todos);
+            File.WriteAllText("todos.json", json);
         }
 
         static void Login()
