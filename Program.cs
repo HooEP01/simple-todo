@@ -21,21 +21,20 @@ namespace ConsoleApp1
 
             while (true)
             {
-                Console.WriteLine("Todo: ");
-                string todo = Console.ReadLine() ?? "default";
-                Todo item = new(todo);
-                todos.Add(item);
-
                 foreach (Todo t in todos)
                 {
                     Console.WriteLine(t.Description + " - " + t.Done);
                 }
-                Console.WriteLine("Continue? (y/n): ");
-                string cont = Console.ReadLine() ?? "n";
-                if (cont == "n")
+
+                Console.WriteLine("Todo, key (n) to exit:");
+                string todo = Console.ReadLine() ?? "default";
+                if (todo == "n")
                 {
                     break;
                 }
+
+                Todo item = new(todo);
+                todos.Add(item);
             }
 
             string json = JsonSerializer.Serialize(todos);
@@ -44,11 +43,8 @@ namespace ConsoleApp1
 
         static void Login()
         {
-            Console.WriteLine("Hello World! C#");
             Console.WriteLine("Enter your username: ");
             string username = Console.ReadLine() ?? "default";
-
-            // string u = username[2..5];
             Console.WriteLine("Username is: " + username);
 
             Console.WriteLine("Enter your age: ");
